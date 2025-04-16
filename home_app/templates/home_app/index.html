@@ -1,0 +1,191 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>سپهر رمضانی | متخصص هوش مصنوعی</title>
+  
+  <!-- فونت‌ها -->
+  <link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazir-font@v30.1.0/dist/font-face.css" rel="stylesheet">
+  
+  <!-- کتابخانه‌های ضروری -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+  <link rel="stylesheet" href="{%static 'css/styles.css'%}">
+  <link rel="stylesheet" href="{%static 'css/styles_header.css'%}">
+</head>
+<body>
+
+  <!-- Fixed header from header.html -->
+  <header class="ai-header">
+      <nav class="navbar navbar-expand-lg">
+          <div class="container">
+              <a class="navbar-brand" href="index.html">
+                  <div class="logo-wrapper">
+                      <i class="fas fa-robot logo-icon"></i>
+                      <span class="logo-text">سپهر رمضانی</span>
+                  </div>
+              </a>
+              <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav">
+                  <span class="navbar-toggler-icon"></span>
+              </button>
+              <div class="collapse navbar-collapse" id="mainNav">
+                  <ul class="navbar-nav ms-auto">
+                      <li class="nav-item">
+                          <a class="nav-link" href="#about">درباره من</a>
+                      </li>
+                      <li class="nav-item dropdown">
+                          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                              بلاگ هام
+                          </a>
+                          <ul class="dropdown-menu">
+                              <li class="dropdown-submenu">
+                                  <a class="dropdown-item dropdown-toggle" href="#" data-bs-toggle="dropdown">هوش مصنوعی <i class="fas fa-chevron-left"></i></a>
+                                  <ul class="dropdown-menu">
+                                      <li><a class="dropdown-item" href="blog.html">یادگیری عمیق</a></li>
+                                      <li><a class="dropdown-item" href="blog.html">پردازش زبان</a></li>
+                                  </ul>
+                              </li>
+                              <li><a class="dropdown-item" href="blog.html">برنامه‌نویسی</a></li>
+                          </ul>
+                      </li>
+                      <li class="nav-item">
+                          <a class="nav-link" href="#contact">تماس</a>
+                      </li>
+                  </ul>
+              </div>
+          </div>
+      </nav>
+  </header>
+
+  <!-- Add spacing below the header -->
+  <div style="margin-top: 80px;"></div>
+
+  <!-- بکگراند مدرن و خفن -->
+  <div class="ai-background"></div>
+
+  <!-- هدر اصلی -->
+  <section class="ai-header-content">
+    <div class="container">
+      <div class="row align-items-center">
+        <!-- عکس پروفایل -->
+        <div class="col-lg-6 text-center" data-aos="fade-right">
+          <div class="ai-profile mx-auto">
+            <img src="https://via.placeholder.com/300" alt="سپهر رمضانی">
+          </div>
+        </div>
+
+        <!-- متن درباره من -->
+        <div class="col-lg-6 mt-5 mt-lg-0" data-aos="fade-left">
+          <h1 class="text-neon-blue mb-4">سپهر رمضانی</h1>
+          <p class="lead">متخصص سیستم‌های هوش مصنوعی صنعتی</p>
+          <div class="skill-bar mt-4">
+            <div class="skill-progress" style="width: 95%"></div>
+          </div>
+          <div class="mt-4">
+            <p>تخصص در توسعه سیستم‌های هوشمند و پیاده‌سازی الگوریتم‌های پیشرفته یادگیری ماشین</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- جداکننده -->
+  <div class="section-divider"></div>
+
+  <!-- بخش مهارت‌ها -->
+  <section id="skills" class="py-5">
+    <div class="container">
+      <h2 class="text-center mb-5 text-neon-blue">مهارت‌های تخصصی</h2>
+      <div class="row g-4">
+        <div class="col-md-4" data-aos="fade-up">
+          <div class="skill-card text-center">
+            <i class="fas fa-brain skill-icon mb-3"></i>
+            <h4>هوش مصنوعی</h4>
+            <p>طراحی و پیاده‌سازی مدل‌های یادگیری عمیق</p>
+          </div>
+        </div>
+
+        <!-- مهارت‌های دیگر -->
+      </div>
+    </div>
+  </section>
+
+  <!-- جداکننده -->
+  <div class="section-divider"></div>
+
+  <!-- بخش تحلیل‌ها -->
+  <section id="analysis" class="py-5">
+    <div class="container">
+      <h2 class="text-center mb-5 text-neon-blue">آخرین تحلیل‌ها</h2>
+      <div class="row g-4">
+        <div class="col-md-4" data-aos="fade-up">
+          <div class="ai-analysis">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+              <div class="analysis-tag">#یادگیری_عمیق</div>
+              <small>۱۴۰۳/۰۷/۲۰</small>
+            </div>
+            <h4>بهینه‌سازی مدل‌های Transformer</h4>
+            <p class="text-muted">روش‌های کاهش مصرف منابع در مدل‌های زبانی بزرگ</p>
+            <div class="text-end">
+              <a href="#" class="text-neon-blue text-decoration-none">مطالعه بیشتر →</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- تحلیل‌های دیگر -->
+      </div>
+    </div>
+  </section>
+
+  <!-- جداکننده -->
+  <div class="section-divider"></div>
+
+  <!-- بخش تماس -->
+  <section id="contact" class="py-5">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-md-8" data-aos="fade-up">
+          <div class="ai-contact">
+            <h3 class="text-center mb-4 text-neon-blue">ارتباط با من</h3>
+            <form>
+              <div class="mb-4">
+                <input type="text" class="form-control" placeholder="نام کامل">
+              </div>
+              <div class="mb-4">
+                <input type="email" class="form-control" placeholder="آدرس ایمیل">
+              </div>
+              <div class="mb-4">
+                <textarea class="form-control" rows="5" placeholder="متن پیام"></textarea>
+              </div>
+              <div class="text-center">
+                <button class="ai-btn">
+                  <i class="fas fa-paper-plane me-2"></i>ارسال پیام
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script src="{%static 'js/main_header.js'%}"></script>
+  <script>
+    AOS.init({
+      duration: 800,
+      once: true,
+      offset: 100
+    });
+
+    // فعال‌سازی انیمیشن نوار مهارت‌ها
+    document.querySelectorAll('.skill-progress').forEach(progress => {
+      progress.style.width = progress.style.width;
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,298 @@
+:root {
+  --neon-blue: #00f3ff;
+  --ai-purple: #6c00ff;
+  --dark-bg: #0a0a16;
+  --text-primary: #e0e0e0;
+}
+
+body {
+  background: var(--dark-bg);
+  color: var(--text-primary);
+  font-family: Vazir, sans-serif;
+  overflow-x: hidden;
+}
+
+/* استایل‌های منوی اصلی با زیرمنو */
+.ai-navbar {
+  background: rgba(10,10,22,0.95);
+  border-bottom: 1px solid rgba(0,243,255,0.2);
+  backdrop-filter: blur(10px);
+  padding: 0.5rem 0;
+}
+
+.navbar-nav {
+  position: relative;
+}
+
+.ai-nav-link {
+  color: var(--text-primary);
+  position: relative;
+  padding: 0.75rem 1.25rem;
+  font-size: 1rem;
+  transition: all 0.3s;
+}
+
+.ai-nav-link:hover {
+  color: var(--neon-blue);
+}
+
+/* استایل زیرمنوها */
+.dropdown-menu {
+  background: rgba(10,10,22,0.98);
+  border: 1px solid rgba(0,243,255,0.3);
+  border-radius: 8px;
+  padding: 0.5rem 0;
+  backdrop-filter: blur(15px);
+  margin-top: 0.5rem;
+}
+
+.dropdown-item {
+  color: var(--text-primary);
+  padding: 0.5rem 1.5rem;
+  transition: all 0.3s;
+}
+
+.dropdown-item:hover {
+  background: rgba(0,243,255,0.1);
+  color: var(--neon-blue);
+}
+
+.dropdown-divider {
+  border-color: rgba(0,243,255,0.1);
+}
+
+/* انیمیشن باز شدن زیرمنو */
+.dropdown-menu {
+  display: block;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(10px);
+  transition: all 0.3s ease;
+}
+
+.show > .dropdown-menu {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+/* آیکون فلش برای آیتم‌های دارای زیرمنو */
+.dropdown-toggle::after {
+  margin-right: 0.5rem;
+  vertical-align: middle;
+  transition: transform 0.3s;
+}
+
+.show > .dropdown-toggle::after {
+  transform: rotate(-180deg);
+}
+
+/* بکگراند مدرن و خفن */
+.ai-background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  background: 
+    radial-gradient(circle at 80% 20%, rgba(0,243,255,0.05) 0%, transparent 30%),
+    linear-gradient(45deg, #0a0a16 30%, #00031a 100%);
+}
+
+.ai-background::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: 
+    repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 1px,
+      rgba(0,243,255,0.03) 2px,
+      rgba(0,243,255,0.03) 3px
+    );
+  animation: scanlines 60s linear infinite;
+}
+
+@keyframes scanlines {
+  from { background-position: 0 0; }
+  to { background-position: 0 100vh; }
+}
+
+/* جداکننده‌های حرفه‌ای */
+.section-divider {
+  position: relative;
+  height: 150px;
+  overflow: hidden;
+}
+
+.section-divider::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: 
+    linear-gradient(45deg, var(--neon-blue), var(--ai-purple));
+  clip-path: polygon(0 0, 100% 0, 100% 50%, 0 100%);
+  opacity: 0.1;
+}
+
+.section-divider::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: 
+    repeating-linear-gradient(
+      45deg,
+      transparent,
+      transparent 10px,
+      rgba(0,243,255,0.05) 11px,
+      rgba(0,243,255,0.05) 12px
+    );
+  animation: rotate 20s linear infinite;
+}
+
+@keyframes rotate {
+  100% { transform: rotate(360deg); }
+}
+
+/* منوی بالای پیشرفته */
+.ai-navbar {
+  background: rgba(10,10,22,0.95);
+  border-bottom: 1px solid rgba(0,243,255,0.2);
+  backdrop-filter: blur(10px);
+}
+
+.ai-nav-link {
+  color: var(--text-primary);
+  position: relative;
+  padding: 0.5rem 1rem;
+}
+
+.ai-nav-link::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: var(--neon-blue);
+  transition: width 0.3s;
+}
+
+.ai-nav-link:hover::after {
+  width: 100%;
+}
+
+/* بخش مهارت‌ها */
+.ai-skills {
+  background: rgba(0,0,0,0.7);
+  border: 1px solid rgba(0,243,255,0.2);
+  border-radius: 15px;
+  padding: 2rem;
+  backdrop-filter: blur(10px);
+}
+
+.skill-card {
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(0,243,255,0.2);
+  border-radius: 15px;
+  padding: 1.5rem;
+  transition: all 0.3s;
+}
+
+.skill-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 0 30px rgba(0,243,255,0.1);
+}
+
+.skill-icon {
+  font-size: 2rem;
+  color: var(--neon-blue);
+}
+
+/* بخش تحلیل‌ها */
+.ai-analysis {
+  background: rgba(0,0,0,0.7);
+  border: 1px solid rgba(0,243,255,0.2);
+  border-radius: 15px;
+  padding: 2rem;
+  backdrop-filter: blur(10px);
+  transition: all 0.3s;
+}
+
+.ai-analysis:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 0 30px rgba(0,243,255,0.1);
+}
+
+.analysis-tag {
+  background: rgba(0,243,255,0.1);
+  color: var(--neon-blue);
+  padding: 0.25rem 0.75rem;
+  border-radius: 15px;
+  font-size: 0.9rem;
+}
+
+/* فرم تماس */
+.ai-contact {
+  background: rgba(0,0,0,0.7);
+  border: 1px solid rgba(0,243,255,0.2);
+  border-radius: 15px;
+  padding: 2rem;
+  backdrop-filter: blur(10px);
+}
+
+.ai-contact input,
+.ai-contact textarea {
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(0,243,255,0.3);
+  color: var(--text-primary);
+  transition: all 0.3s;
+}
+
+.ai-contact input:focus,
+.ai-contact textarea:focus {
+  border-color: var(--neon-blue);
+  box-shadow: 0 0 15px rgba(0,243,255,0.2);
+}
+
+.ai-btn {
+  background: var(--neon-blue);
+  color: var(--dark-bg);
+  border: none;
+  padding: 0.75rem 2rem;
+  border-radius: 25px;
+  transition: all 0.3s;
+}
+
+.ai-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 0 20px rgba(0,243,255,0.5);
+}
+
+/* کلاس‌های کمکی */
+.text-neon-blue {
+  color: var(--neon-blue);
+}
+
+.mt-5 {
+  margin-top: 3rem;
+}
+
+.mb-4 {
+  margin-bottom: 1.5rem;
+}
+
+.text-center {
+  text-align: center;
+}
