@@ -1,285 +1,55 @@
-/* blog.css - نسخه مدرن‌تر و بهینه‌تر */
-
-/* متغیرهای رنگی */
 :root {
-    --neon-blue: #00f3ff;
-    --ai-purple: #6c00ff;
     --dark-bg: #0a0a16;
-    --text-primary: #f0f0f0;
-    --text-secondary: #c0c0c0;
-    --border-color: rgba(0, 243, 255, 0.2);
-}
-
-/* ریست پایه */
-body {
+    --card-bg: rgba(15,15,25,0.95);
+    --primary: #00f3ff;
+    --secondary: #6c00ff;
+    --text-main: #f0f0f0;
+    --text-muted: #c0c0c0;
+    --border-light: rgba(0,243,255,0.2);
+  }
+  
+  /* بدنه و پس‌زمینه ثابت */
+  body {
     background: var(--dark-bg);
-    color: var(--text-primary);
+    color: var(--text-main);
     font-family: 'Vazir', sans-serif;
-    line-height: 1.8;
-    margin: 0;
-    padding: 0;
-    overflow-x: hidden;
-}
-
-/* هدر بلاگ */
-.blog-header {
-    padding: clamp(80px, 10vw, 120px) 0 clamp(40px, 5vw, 60px);
-    margin-top: clamp(60px, 8vw, 80px);
-    position: relative;
-    overflow: hidden;
+    margin: 0; padding: 0;
+  }
+  
+  /* هدر */
+  .blog-header {
     text-align: center;
-}
-
-.blog-header .header-content {
-    position: relative;
-    z-index: 2;
-}
-
-.blog-header h1 {
-    font-size: clamp(2rem, 5vw, 2.5rem);
-    margin-bottom: 1.5rem;
-    text-shadow: 0 0 15px rgba(0, 243, 255, 0.3);
-}
-
-/* کارت مقالات */
-.blog-post {
-    background: rgba(15, 15, 25, 0.95);
-    border: 1px solid var(--border-color);
-    border-radius: 12px;
+    padding: 8rem 1rem 4rem;
+    background: linear-gradient(135deg, #050514 0%, #0a0a16 100%);
+  }
+  .blog-header h1 { color: var(--primary); text-shadow: 0 0 10px var(--primary); }
+  
+  /* کارت مقاله */
+  .blog-post {
+    background: var(--card-bg);
+    border: 1px solid var(--border-light);
+    border-radius: 1rem;
     padding: 2rem;
-    margin-bottom: 2rem;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-}
-
-.blog-post:hover {
+    transition: all .3s;
+  }
+  .blog-post:hover {
+    box-shadow: 0 0 20px var(--primary);
     transform: translateY(-5px);
-    box-shadow: 0 10px 30px rgba(0, 243, 255, 0.1);
-}
-
-.post-title a {
-    color: var(--text-primary);
-    text-decoration: none;
-    transition: color 0.3s ease;
-}
-
-.post-title a:hover {
-    color: var(--neon-blue);
-    text-decoration: underline;
-}
-
-.post-meta {
-    color: var(--text-secondary);
-    font-size: 0.9rem;
-}
-
-.post-excerpt {
-    color: var(--text-secondary);
-    font-size: 1.1rem;
-}
-
-/* دکمه‌های سفارشی */
-.ai-btn-primary {
-    background: linear-gradient(45deg, var(--neon-blue), var(--ai-purple));
+  }
+  .blog-post .post-title a { color: var(--text-main); font-size: 1.75rem; }
+  .blog-post .post-excerpt { color: var(--text-muted); line-height: 1.6; }
+  
+  /* دکمه‌ها */
+  .btn-primary, .ai-btn-primary {
+    background: linear-gradient(45deg, var(--primary), var(--secondary));
+    color: var(--dark-bg);
     border: none;
-    color: var(--dark-bg);
-    padding: 0.75rem 2rem;
-    border-radius: 8px;
-    font-weight: bold;
-    position: relative;
-    overflow: hidden;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    cursor: pointer;
-}
-
-.ai-btn-primary:hover {
+    padding: .75rem 1.5rem;
+    border-radius: .5rem;
+    transition: all .2s;
+  }
+  .btn-primary:hover, .ai-btn-primary:hover {
+    box-shadow: 0 0 15px var(--primary);
     transform: translateY(-2px);
-    box-shadow: 0 5px 15px rgba(0, 243, 255, 0.3);
-}
-
-.ai-btn-outline {
-    border: 2px solid var(--neon-blue);
-    color: var(--neon-blue);
-    background: transparent;
-    padding: 0.5rem 1.5rem;
-    border-radius: 8px;
-    transition: background 0.3s ease, color 0.3s ease;
-    cursor: pointer;
-}
-
-.ai-btn-outline:hover {
-    background: rgba(0, 243, 255, 0.1);
-}
-
-/* سایدبار */
-.blog-sidebar {
-    position: sticky;
-    top: 100px;
-}
-
-.sidebar-widget {
-    background: rgba(15, 15, 25, 0.95);
-    border: 1px solid var(--border-color);
-    border-radius: 12px;
-    padding: 1.5rem;
-    margin-bottom: 2rem;
-}
-
-.category-list {
-    list-style: none;
-    padding: 0;
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-}
-
-.category-list a {
-    color: var(--text-primary);
-    padding: 0.75rem 1rem;
-    border-radius: 8px;
-    display: block;
-    transition: background 0.3s ease, color 0.3s ease;
-}
-
-.category-list a:hover {
-    background: rgba(0, 243, 255, 0.1);
-    text-decoration: none;
-}
-
-/* صفحه‌بندی */
-.blog-pagination .pagination {
-    justify-content: center;
-    display: flex;
-    gap: 0.5rem;
-}
-
-.blog-pagination .page-link {
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid var(--border-color);
-    color: var(--text-primary);
-    padding: 0.5rem 1rem;
-    border-radius: 8px;
-    text-align: center;
-    transition: background 0.3s ease, color 0.3s ease;
-}
-
-.blog-pagination .page-link:hover {
-    background: rgba(0, 243, 255, 0.1);
-    color: var(--neon-blue);
-}
-
-.blog-pagination .page-item.active .page-link {
-    background: var(--neon-blue);
-    border-color: var(--neon-blue);
-    color: var(--dark-bg);
-    font-weight: bold;
-}
-
-/* فرم جستجو */
-.ai-search .form-control {
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid var(--border-color);
-    color: var(--text-primary);
-    padding: 0.5rem 1rem;
-    border-radius: 8px;
-    transition: border-color 0.3s ease, box-shadow 0.3s ease;
-}
-
-.ai-search .form-control:focus {
-    border-color: var(--neon-blue);
-    box-shadow: 0 0 15px rgba(0, 243, 255, 0.2);
-    outline: none;
-}
-
-/* نویسنده */
-.author-card {
-    background: rgba(0, 0, 0, 0.3);
-    border-radius: 10px;
-    padding: 1rem;
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-}
-
-.author-img {
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    border: 2px solid var(--neon-blue);
-}
-
-.author-name {
-    color: var(--neon-blue);
-    font-weight: bold;
-}
-
-.author-title {
-    color: var(--text-secondary);
-    font-size: 0.9rem;
-}
-
-/* ریسپانسیو */
-@media (max-width: 992px) {
-    .blog-header {
-        padding: 80px 0 40px;
-        margin-top: 60px;
-    }
-
-    .blog-header h1 {
-        font-size: 2rem;
-    }
-
-    .blog-sidebar {
-        margin-top: 3rem;
-    }
-}
-
-@media (max-width: 768px) {
-    .blog-post {
-        padding: 1.5rem;
-    }
-
-    .post-excerpt {
-        font-size: 1rem;
-    }
-}
-
-/* انیمیشن‌های AOS */
-[data-aos] {
-    transition: all 0.8s ease;
-}
-
-/* بکگراند پویا */
-.ai-background {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: -1;
-    background: 
-        radial-gradient(circle at 80% 20%, rgba(0,243,255,0.05) 0%, transparent 30%),
-        linear-gradient(45deg, #0a0a16 30%, #00031a 100%);
-    animation: background-pulse 20s infinite;
-}
-
-@keyframes background-pulse {
-    0%, 100% { opacity: 0.9; }
-    50% { opacity: 1; }
-}
-
-/* بهبود نوار اسکرول */
-::-webkit-scrollbar {
-    width: 8px;
-}
-
-::-webkit-scrollbar-track {
-    background: var(--dark-bg);
-}
-
-::-webkit-scrollbar-thumb {
-    background: var(--neon-blue);
-    border-radius: 4px;
-}
+  }
+  

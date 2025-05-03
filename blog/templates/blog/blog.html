@@ -1,0 +1,231 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>وبلاگ سپهر رمضانی | مقالات </title>
+  
+  <!-- فونت‌ها -->
+  <link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazir-font@v30.1.0/dist/font-face.css" rel="stylesheet">
+  
+  <!-- کتابخانه‌های ضروری -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+  <link rel="stylesheet" href="{% static 'css/blog.css' %}">
+  <link rel="stylesheet" href="{% static 'css/comments.css' %}">
+</head>
+<body>
+  <div class="ai-background"></div>
+
+  <!-- Replaced header -->
+  <header class="ai-header">
+      <nav class="navbar navbar-expand-lg">
+          <div class="container">
+              <a class="navbar-brand" href="{% url 'home' %}">
+                  <div class="logo-wrapper">
+                      <i class="fas fa-robot logo-icon"></i>
+                      <span class="logo-text">سپهر رمضانی</span>
+                  </div>
+              </a>
+              <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav">
+                  <span class="navbar-toggler-icon"></span>
+              </button>
+              <div class="collapse navbar-collapse" id="mainNav">
+                  <ul class="navbar-nav ms-auto">
+                      <li class="nav-item">
+                          <a class="nav-link" href="{% url 'home' %}#about">درباره من</a>
+                      </li>
+                      <li class="nav-item dropdown">
+                          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                              بلاگ هام
+                          </a>
+                          <ul class="dropdown-menu">
+                              <li class="dropdown-submenu">
+                                  <a class="dropdown-item dropdown-toggle">هوش مصنوعی <i class="fas fa-chevron-left"></i></a>
+                                  <ul class="dropdown-menu">
+                                      <li><a class="dropdown-item" href="{% url 'blog:post_list' %}?category=یادگیری-عمیق">یادگیری عمیق</a></li>
+                                      <li><a class="dropdown-item" href="{% url 'blog:post_list' %}?category=پردازش-زبان">پردازش زبان</a></li>
+                                  </ul>
+                              </li>
+                              <li><a class="dropdown-item" href="{% url 'blog:post_list' %}?category=برنامه‌نویسی">برنامه‌نویسی</a></li>
+                          </ul>
+                      </li>
+                      <li class="nav-item">
+                          <a class="nav-link" href="{% url 'home' %}#contact">تماس</a>
+                      </li>
+                  </ul>
+              </div>
+          </div>
+      </nav>
+  </header>
+
+  <!-- ناوبری پیشرفته -->
+  <nav class="navbar ai-navbar navbar-expand-lg fixed-top">
+    <!-- محتوای منو همانند قبل -->
+  </nav>
+
+  <!-- هدر هوشمند با اسکرول پارالاکس -->
+  <header class="blog-header">
+    <div class="header-overlay"></div>
+    <div class="container">
+      <div class="header-content" data-aos="fade-up">
+        <h1 class="text-gradient">دانشنامه هوش مصنوعی</h1>
+        <p class="lead">کاوش در عمیق‌ترین مفاهیم یادگیری ماشین</p>
+        <div class="header-search">
+          <form method="get" action="{% url 'blog:post_list' %}" class="input-group">
+            <input
+              type="text"
+              name="q"
+              class="form-control"
+              placeholder="جستجو در بین ۲۵۰ مقاله تخصصی..."
+              value="{{ query|default:'' }}"
+            >
+            <button type="submit" class="btn ai-btn-primary">
+              <i class="fas fa-search me-2"></i>جستجوی پیشرفته
+            </button>
+          </form>
+        </div>
+        {% if query %}
+        <div class="alert alert-info mt-4" role="alert">
+          نتایج جستجو برای "<strong>{{ query }}</strong>"
+        </div>
+        {% endif %}
+      </div>
+    </div>
+  </header>
+
+  <!-- محتوای اصلی -->
+  <main class="blog-main">
+    <div class="container">
+      <div class="row g-4">
+        <!-- مقالات -->
+        <section class="col-lg-8">
+          {% for article in articles %}
+          <article class="blog-post enhanced-card">
+            <div class="post-header">
+              <div class="post-meta">
+                <span class="post-category ai-tag">#{{ article.category.first.Title }}</span>
+                <span class="post-date"><i class="fas fa-calendar me-2"></i>{{ article.publish|date:"Y/m/d" }}</span>
+              </div>
+              <h2 class="post-title">
+                <a href="{{ article.get_absolute_url }}">{{ article.Title }}</a>
+              </h2>
+            </div>
+            <div class="post-content">
+              <p class="post-excerpt">
+                {% if article.Body|length > 150 %}
+                  {{ article.Body|slice:":150" }}...
+                {% else %}
+                  {{ article.Body }}
+                {% endif %}
+              </p>
+              <div class="post-footer">
+                <div class="author-card">
+                  <img src="{% static 'images/author.jpg' %}" alt="سپهر رمضانی" class="author-img">
+                  <div class="author-info">
+                    <span class="author-name">{{ article.Author.get_full_name }}</span>
+                    <span class="author-title">متخصص NLP</span>
+                  </div>
+                </div>
+                <a href="{{ article.get_absolute_url }}" class="ai-btn-outline">
+                  مطالعه کامل مقاله
+                  <i class="fas fa-arrow-left ms-2"></i>
+                </a>
+              </div>
+            </div>
+          </article>
+          {% empty %}
+          <div class="alert alert-warning">
+            هیچ مقاله‌ای با این مشخصات پیدا نشد.
+          </div>
+          {% endfor %}
+        </section>
+
+        <!-- سایدبار پیشرفته -->
+        <aside class="col-lg-4">
+          <div class="blog-sidebar">
+            <!-- ویجت دسته‌بندی‌ها -->
+            <div class="sidebar-widget category-widget">
+              <h3 class="widget-title">موضوعات داغ</h3>
+              <ul class="category-list">
+                {% for i in category %}
+                <li>
+                  <a href="{% url 'blog:category' i.id %}" class="category-item">
+                    <span class="category-name">{{ i.Title }}</span>
+                    <span class="category-count">۴۸ مقاله</span>
+                  </a>
+                </li>
+                {% endfor %}
+              </ul>
+            </div>
+
+            <!-- ویجت مقالات پرطرفدار -->
+            <div class="sidebar-widget popular-widget">
+              <h3 class="widget-title">داغ‌ترین مقالات</h3>
+              <div class="popular-post">
+                <div class="post-badge">پر بازدید</div>
+                <h4 class="post-title">
+                  <a href="#">پیاده‌سازی GAN در TensorFlow 2.0</a>
+                </h4>
+                <div class="post-stats">
+                  <span class="stat-item">
+                    <i class="fas fa-eye"></i> ۱,۲۰۴
+                  </span>
+                  <span class="stat-item">
+                    <i class="fas fa-comments"></i> ۱۸
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </aside>
+      </div>
+
+      <!-- صفحه‌بندی پیشرفته -->
+      <nav class="blog-pagination">
+        <ul class="pagination">
+          <li class="page-item {% if not page_obj.has_previous %}disabled{% endif %}">
+            <a class="page-link"
+               {% if page_obj.has_previous %}
+                 href="?page={{ page_obj.previous_page_number }}{% if query %}&q={{ query }}{% endif %}"
+               {% endif %}>
+              <i class="fas fa-arrow-right"></i>
+            </a>
+          </li>
+      
+          {% for num in page_obj.paginator.page_range %}
+            <li class="page-item {% if page_obj.number == num %}active{% endif %}">
+              <a class="page-link"
+                 href="?page={{ num }}{% if query %}&q={{ query }}{% endif %}">
+                {{ num }}
+              </a>
+            </li>
+          {% endfor %}
+      
+          <li class="page-item {% if not page_obj.has_next %}disabled{% endif %}">
+            <a class="page-link"
+               {% if page_obj.has_next %}
+                 href="?page={{ page_obj.next_page_number }}{% if query %}&q={{ query }}{% endif %}"
+               {% endif %}>
+              <i class="fas fa-arrow-left"></i>
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </main>
+
+  <!-- اسکریپت‌ها -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script>
+    AOS.init({
+      duration: 800,
+      once: true,
+      offset: 100
+    });
+  </script>
+</body>
+</html>

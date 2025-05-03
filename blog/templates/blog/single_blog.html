@@ -1,0 +1,217 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<link rel="stylesheet" href="{% static 'css/blog.css' %}">
+<link rel="stylesheet" href="{% static 'css/comments.css' %}">
+
+<div class="ai-background"></div>
+
+<header class="blog-header py-5">
+  <div class="container">
+    <div class="row align-items-center g-5">
+      <div class="col-lg-6" data-aos="fade-up">
+        <h1 class="text-gradient display-4 fw-bold mb-4">{{ article.Title }}</h1>
+        <p class="lead text-muted mb-4">{{ article.Summary }}</p>
+        <div class="post-meta d-flex gap-3">
+          <span class="post-category badge bg-primary bg-opacity-10 text-primary">
+            {% for cat in article.category.all %}
+              {{ cat.name }}{% if not forloop.last %}, {% endif %}
+            {% endfor %}
+          </span>
+          <span class="post-date text-secondary">
+            <i class="fas fa-calendar-alt me-2"></i>{{ article.Created|date:"Y/m/d" }}
+          </span>
+        </div>
+      </div>
+      <div class="col-lg-6" data-aos="fade-left">
+        <div class="ratio ratio-16x9">
+          <img src="{{ article.Image.url }}" alt="تصویر مقاله" class="img-fluid rounded-3 object-fit-cover shadow-sm">
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main class="blog-main py-5">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-lg-9">
+        <article class="blog-post">
+          <div class="post-content fs-5 lh-base text-dark">
+            {{ article.Body|linebreaks }}
+          </div>
+          <div class="post-footer mt-5 pt-4 border-top">
+            <div class="author-card d-flex align-items-center gap-4 p-4 bg-light rounded-3">
+              {% if article.Author.profile.image %}
+                <img src="{{ article.Author.profile.image.url }}" alt="{{ article.Author.get_full_name }}" class="author-img profile-image flex-shrink-0">
+              {% else %}
+                <img src="{% static 'photo/images.png' %}" alt="پروفایل پیش‌فرض" class="author-img profile-image flex-shrink-0">
+              {% endif %}
+              <div class="author-info">
+                <h4 class="author-name mb-1">{{ article.Author.get_full_name|default:article.Author.username }}</h4>
+                <span class="author-title text-muted small">نویسنده مقاله</span>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <section class="comments-section mt-5 pt-5">
+          <h3 class="mb-4 fw-bold">نظرات کاربران <span class="badge bg-primary bg-opacity-10 text-primary">{{ article.comments.count }}</span></h3>
+
+          {% if user.is_authenticated %}
+            <div id="comment-form-wrapper" class="comment-form mb-5">
+              <h4 class="mb-3 h5 fw-bold">ثبت نظر جدید</h4>
+              <form id="main-comment-form" method="post" action="{{ article.get_absolute_url }}">
+                {% csrf_token %}
+                <div class="form-group mb-3">
+                  <textarea name="body" id="comment-textarea" class="form-control p-3" rows="4" placeholder="نظر خود را اینجا بنویسید..." required></textarea>
+                </div>
+                <input type="hidden" name="parent_id" id="parent_id" value="">
+                <div class="d-flex gap-2">
+                  <button type="submit" class="btn btn-primary px-4">ارسال نظر</button>
+                  <button type="button" id="cancel-reply" class="btn btn-outline-secondary" style="display:none;">انصراف</button>
+                </div>
+              </form>
+            </div>
+          {% else %}
+            <div class="alert alert-warning bg-warning bg-opacity-10 border-warning">
+              برای ثبت نظر باید <a href="{% url 'account:login' %}" class="text-decoration-underline">وارد</a> شوید یا <a href="{% url 'account:register' %}" class="text-decoration-underline">ثبت‌نام</a> کنید.
+            </div>
+          {% endif %}
+
+          <div class="comments-list">
+            {% for comment in article.comments.all %}
+              {% if not comment.parent %}
+                <div class="comment-card mb-4 {% if comment.user == article.Author %}author-comment{% endif %}" id="comment-{{ comment.id }}">
+                  <div class="comment-header d-flex justify-content-between align-items-start mb-3">
+                    <div class="comment-author d-flex align-items-center gap-3">
+                      {% if comment.user.profile.image %}
+                        <img src="{{ comment.user.profile.image.url }}" alt="{{ comment.user.get_full_name|default:comment.user.username }}" class="comment-avatar profile-image">
+                      {% else %}
+                        <img src="{% static 'photo/images.png' %}" alt="کابر" class="comment-avatar profile-image">
+                      {% endif %}
+                      <div class="comment-author-info">
+                        <h5 class="comment-author-name mb-0 d-flex align-items-center gap-2">
+                          {{ comment.user.get_full_name|default:comment.user.username }} {% if comment.user == article.Author %}<span class="badge bg-primary bg-opacity-10 text-primary small">نویسنده</span>{% endif %}
+                        </h5>
+                        <span class="comment-date text-muted small"><i class="far fa-clock me-1"></i>{{ comment.created_at|timesince }} پیش</span>
+                      </div>
+                    </div>
+                    {% if user.is_authenticated %}<button class="btn btn-sm btn-outline-primary btn-reply" data-comment-id="{{ comment.id }}"><i class="fas fa-reply me-1"></i>پاسخ</button>{% endif %}
+                  </div>
+                  <div class="comment-body ps-2"><p class="mb-0 text-dark">{{ comment.body }}</p></div>
+
+                  {% for reply in comment.replies.all %}
+                    <div class="comment-reply mt-3 ms-4 ps-3 border-start border-2 border-primary-20" id="comment-{{ reply.id }}">
+                      <div class="comment-header d-flex justify-content-between align-items-start mb-2">
+                        <div class="comment-author d-flex align-items-center gap-3">
+                          {% if reply.user.profile.image %}
+                            <img src="{{ reply.user.profile.image.url }}" alt="{{ reply.user.get_full_name|default:reply.user.username }}" class="comment-avatar profile-image">
+                          {% else %}
+                            <img src="{% static 'photo/images.png' %}" alt="کابر" class="comment-avatar profile-image">
+                          {% endif %}
+                          <div class="comment-author-info">
+                            <h5 class="comment-author-name mb-0 d-flex align-items-center gap-2">
+                              {{ reply.user.get_full_name|default:reply.user.username }} {% if reply.user == article.Author %}<span class="badge bg-primary bg-opacity-10 text-primary small">نویسنده</span>{% endif %}
+                            </h5>
+                            <span class="comment-date text-muted small"><i class="far fa-clock me-1"></i>{{ reply.created_at|timesince }} پیش</span>
+                          </div>
+                        </div>
+                        {% if user.is_authenticated %}<button class="btn btn-sm btn-outline-primary btn-reply" data-comment-id="{{ reply.id }}"><i class="fas fa-reply me-1"></i>پاسخ</button>{% endif %}
+                      </div>
+                      <div class="comment-body ps-2"><p class="mb-0 text-dark">{{ reply.body }}</p></div>
+                    </div>
+                  {% endfor %}
+                </div>
+              {% endif %}
+            {% empty %}
+              <div class="alert alert-info bg-info bg-opacity-10 border-info text-center py-3">
+                <i class="far fa-comment-dots me-2"></i>هنوز نظری ثبت نشده است. اولین نفری باشید که نظر می‌دهد!
+              </div>
+            {% endfor %}
+          </div>
+        </section>
+      </div>
+    </div>
+  </div>
+</main>
+{% endblock %}
+
+{% block extra_scripts %}
+<script>
+  AOS.init({ duration: 800, once: true, offset: 100 });
+  document.addEventListener('DOMContentLoaded', function() {
+    const formWrapper = document.getElementById('comment-form-wrapper');
+    const commentForm = document.getElementById('main-comment-form');
+    const textarea = document.getElementById('comment-textarea');
+    const parentField = document.getElementById('parent_id');
+    const cancelBtn = document.getElementById('cancel-reply');
+    let originalWrapper = formWrapper.parentNode;
+    function resetForm() {
+      parentField.value = '';
+      textarea.placeholder = 'نظر خود را اینجا بنویسید...';
+      cancelBtn.style.display = 'none';
+      if (formWrapper.parentNode !== originalWrapper) {
+        originalWrapper.appendChild(formWrapper);
+      }
+      document.querySelectorAll('.comment-card.replying').forEach(card => card.classList.remove('bg-primary-05', 'rounded-3', 'replying'));
+    }
+    document.querySelectorAll('.btn-reply').forEach(btn => {
+      btn.addEventListener('click', function() {
+        const cid = this.dataset.commentId;
+        resetForm();
+        const target = document.getElementById('comment-' + cid);
+        parentField.value = cid;
+        const author = target.querySelector('.comment-author-name').textContent.trim();
+        textarea.placeholder = `پاسخ به ${author}...`;
+        cancelBtn.style.display = 'inline-block';
+        target.classList.add('bg-primary-05', 'rounded-3', 'replying');
+        target.appendChild(formWrapper);
+        textarea.focus();
+      });
+    });
+    cancelBtn.addEventListener('click', resetForm);
+    commentForm.addEventListener('submit', () => setTimeout(resetForm, 100));
+  });
+</script>
+
+<style>
+  /* متن مقاله */
+  .post-content {
+    color: #e0e0e0 !important;
+  }
+
+  /* متن کامنت */
+  .comment-body p, .comment-author-name, .comment-date {
+    color: #e0e0e0 !important;
+  }
+  /* حذف هایلایت آبی ناخوانا */
+  .bg-primary-05, .comment-card.replying {
+    background-color: rgba(255, 255, 255, 0.05) !important;
+    border-color: #555 !important;
+  }
+  /* دکمه پاسخ و لیمیت آبی */
+  .btn-outline-primary, .btn-reply {
+    color: #ccc !important;
+    border-color: #777 !important;
+  }
+  .btn-outline-primary:hover, .btn-reply:hover {
+    background-color: rgba(255,255,255,0.1) !important;
+    color: #fff !important;
+  }
+  /* لینک‌ها */
+  a, a .text-decoration-underline {
+    color: var(--primary) !important;
+  }
+  a:hover {
+    color: var(--secondary) !important;
+  }
+  /* غیرفعال کردن آبی پیش‌فرض focus */
+  :focus, button:focus, .btn-outline-primary:focus {
+    outline: none !important;
+    box-shadow: none !important;
+  }
+</style>
+{% endblock %}

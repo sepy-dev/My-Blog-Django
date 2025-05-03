@@ -296,3 +296,28 @@ body {
 .text-center {
   text-align: center;
 }
+.author-section {
+  padding-bottom: 10px;
+  border-bottom: 1px dashed rgba(255, 255, 255, 0.1);
+  margin-bottom: 15px;
+}
+
+.ai-analysis {
+  background: rgba(30, 30, 40, 0.8);
+  border-radius: 10px;
+  padding: 20px;
+  transition: all 0.3s ease;
+}
+
+.ai-analysis:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+.analysis-tag {
+  background: rgba(79, 195, 247, 0.2);
+  color: #4fc3f7;
+  padding: 3px 10px;
+  border-radius: 20px;
+  font-size: 0.8rem;
+}

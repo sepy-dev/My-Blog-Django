@@ -1,0 +1,33 @@
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background: var(--dark-bg);
+}
+
+.login-card {
+  background: rgba(0, 0, 0, 0.7);
+  border: 1px solid rgba(0, 243, 255, 0.2);
+  border-radius: 15px;
+  padding: 2rem;
+  width: 100%;
+  max-width: 400px;
+  box-shadow: 0 0 30px rgba(0, 243, 255, 0.1);
+}
+
+.login-card .form-label {
+  color: var(--text-primary);
+}
+
+.login-card .form-control {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(0, 243, 255, 0.3);
+  color: var(--text-primary);
+  transition: all 0.3s;
+}
+
+.login-card .form-control:focus {
+  border-color: var(--neon-blue);
+  box-shadow: 0 0 15px rgba(0, 243, 255, 0.2);
+}
