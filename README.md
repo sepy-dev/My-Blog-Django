@@ -20,7 +20,7 @@ Supports Persian (Farsi) UI and includes essential features like user authentica
 1. **Clone the repository**  
 ```bash
 https://github.com/sepy-dev/My-Blog-Django.git
-cd your-repo-name
+cd My-Blog-Django
 
     Install dependencies
 
